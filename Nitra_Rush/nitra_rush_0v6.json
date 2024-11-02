@@ -1,0 +1,1173 @@
+{
+  "Name": "Nitra Rush v0.6",
+  "Description": "Calling resupplies will make the difficulty harder. Collecting gold and other minerals will give minor positive effects.",
+  "Caps": {
+    "MaxActiveCritters": 40,
+    "MaxActiveSwarmers": [90, 120, 180, 180],
+    "MaxActiveEnemies": [90, 120, 180, 180]
+  },
+  "Resupply": {
+    "Cost": {
+      "Mutate": "IfFloat",
+      "Value": {
+        "Mutate": "DepositedResource",
+        "Resource": "Gold"
+      },
+      ">": 99,
+      "Then": 40,
+      "Else": 45
+    }
+  },
+  "DifficultySetting": {
+    "ExtraLargeEnemyDamageResistance": [1, 1.3, 1.7, 2.1],
+    "ExtraLargeEnemyDamageResistanceB": [1, 1.3, 1.5, 1.7],
+    "ExtraLargeEnemyDamageResistanceC": [1, 1.3, 1.7, 2.1],
+    "ExtraLargeEnemyDamageResistanceD": [1.5, 1.55, 1.75, 1.9],
+    "EnemyDamageResistance": [1.4, 1.5, 1.6, 1.75],
+    "SmallEnemyDamageResistance": [1.2, 1.2, 1.2, 1.2],
+    "EnemyDamageModifier": [3.3, 3.65, 3.9, 4.1],
+    "EnemyCountModifier": [2.09, 2.31, 2.97, 3.63],
+    "EncounterDifficulty": [
+      {
+        "weight": 1,
+        "min": 650,
+        "max": 750
+      }
+    ],
+    "StationaryDifficulty": [
+      {
+        "weight": 1,
+        "min": 800,
+        "max": 950
+      }
+    ],
+    "EnemyWaveInterval": [
+      {
+        "weight": 0.39,
+        "min": 120,
+        "max": 150
+      },
+      {
+        "weight": 0.5,
+        "min": 110,
+        "max": 140
+      },
+      {
+        "weight": 0.1,
+        "min": 90,
+        "max": 90
+      },
+      {
+        "weight": 0.01,
+        "min": 1,
+        "max": 1
+      }
+    ],
+    "EnemyNormalWaveInterval": [
+      {
+        "weight": 0.6,
+        "min": 150,
+        "max": 180
+      },
+      {
+        "weight": 0.3,
+        "min": 170,
+        "max": 190
+      },
+      {
+        "weight": 0.1,
+        "min": 0,
+        "max": 0
+      }
+    ],
+    "EnemyNormalWaveDifficulty": [
+      {
+        "weight": 1,
+        "min": 800,
+        "max": 800
+      }
+    ],
+    "EnemyDiversity": [
+      {
+        "weight": 1,
+        "min": 4,
+        "max": 10
+      }
+    ],
+    "StationaryEnemyDiversity": [
+      {
+        "weight": 1,
+        "min": 6,
+        "max": 6
+      }
+    ],
+    "VeteranNormal": [
+      {
+        "weight": 1,
+        "min": 0.5,
+        "max": 0.8
+      }
+    ],
+    "VeteranLarge": [
+      {
+        "weight": 1,
+        "min": 0.2,
+        "max": 0.2
+      }
+    ],
+    "EnvironmentalDamageModifier": 1.4,
+    "PointExtractionScalar": 1.4,
+    "FriendlyFireModifier": 0.9,
+    "WaveStartDelayScale": 0,
+    "SpeedModifier": {
+      "Mutate": "Add",
+      "A": 1.35,
+      "B": {
+        "Mutate": "Multiply",
+        "A": {
+          "Mutate": "ResuppliesCalled"
+        },
+        "B": 0.1
+      }
+    },
+    "AttackCooldownModifier": 1.75,
+    "ProjectileSpeedModifier": {
+      "Mutate": "Add",
+      "A": 1.9,
+      "B": {
+        "Mutate": "Multiply",
+        "A": {
+          "Mutate": "ResuppliesCalled"
+        },
+        "B": 0.1
+      }
+    },
+    "HealthRegenerationMax": 0.4,
+    "ReviveHealthRatio": 0.4
+  },
+  "Pools": {
+    "MinPoolSize": 30,
+    "DisruptiveEnemyPoolCount": {
+      "min": 8,
+      "max": 8
+    },
+    "StationaryEnemyCount": {
+      "Min": 6,
+      "Max": 6
+    },
+    "CommonEnemies": {
+      "Add": [
+        "ED_JellyBreeder_Swarm",
+        "ED_PatrolBot",
+        "ED_Sentinel",
+        "ED_Bomber_Explosive"
+      ]
+    },
+    "StationaryPool": {
+      "Add": ["ED_ShootingPlant_NukeSingle"],
+      "Remove": []
+    }
+  },
+  "Enemies": {
+    "ED_BarrageInfector": {
+      "DifficultyRating": 250
+    },
+    "ED_ShootingPlant_NukeSingle": {
+      "CanBeUsedForConstantPressure": false,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 300,
+      "Materials": [
+        "M_Parasite2_01",
+        "M_Biome_RadioactiveZone_UraniumGlowing",
+        "M_Biome_RadioactiveZone_UraniumGlowing"
+      ],
+      "MaxSpawnCount": 9999,
+      "MinSpawnCount": 1,
+      "Rarity": 1,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Bomber": {
+      "Base": "ED_Bomber",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 90,
+      "MaxSpawnCount": 1,
+      "Rarity": 5.25,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Bomber_Explosive": {
+      "Base": "ED_Bomber_Explosive",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 110,
+      "MaxSpawnCount": 1,
+      "MinSpawnCount": 1,
+      "Rarity": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 0,
+        "Then": 5.5,
+        "Else": 100
+      },
+      "SpawnAmountModifier": 1
+    },
+    "ED_CaveLeech": {
+      "Base": "ED_CaveLeech",
+      "CaveLeech": {
+        "MaxDropPlayerDuration": 10
+      },
+      "DifficultyRating": 100,
+      "TimeDilation": 1.25
+    },
+    "ED_EggSpider": {
+      "Base": "ED_Spider_Grunt",
+      "DisplayName": "Glyphid Egg Grunt",
+      "Materials": ["M_Bosco_PJ_CorporateMint", "M_Refrigerator_Chrome"]
+    },
+    "ED_Grabber": {
+      "Base": "ED_Grabber",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 90,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 1,
+      "Rarity": 5.5,
+      "SpawnSpread": 5000
+    },
+    "ED_Jelly_Swarmer": {
+      "Base": "ED_Jelly_Swarmer",
+      "DifficultyRating": 20,
+      "MaxSpawnCount": 10,
+      "MinSpawnCount": 5,
+      "Rarity": 5.25
+    },
+    "ED_JellyBreeder": {
+      "Base": "ED_JellyBreeder",
+      "Resistances": {
+        "DamageMultiplier": 2
+      }
+    },
+    "ED_JellyBreeder_Swarm": {
+      "Base": "ED_JellyBreeder",
+      "CanBeUsedForConstantPressure": false,
+      "CanBeUsedInEncounters": false,
+      "DifficultyRating": 250,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 1,
+      "Rarity": 7,
+      "Resistances": {
+        "DamageMultiplier": 2
+      },
+      "SpawnAmountModifier": 1
+    },
+    "ED_Mactera_Shooter_Normal": {
+      "Base": "ED_Mactera_Shooter_Normal",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 30,
+      "Rarity": 5.125
+    },
+    "ED_Mactera_TripleShooter": {
+      "Base": "ED_Mactera_TripleShooter",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "Rarity": 5.25
+    },
+    "ED_PatrolBot": {
+      "Base": "ED_PatrolBot",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 175,
+      "MaxSpawnCount": 1,
+      "MinSpawnCount": 1,
+      "Rarity": 5.5,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Sentinel": {
+      "Base": "ED_Spider_Tank_HeavySpawn",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 90,
+      "MaxSpawnCount": 10,
+      "MinSpawnCount": 1,
+      "Rarity": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 0,
+        "Then": 5.1,
+        "Else": 100
+      },
+      "SpawnAmountModifier": 1,
+      "SpawnSpread": 5000
+    },
+    "ED_ShootingPlant": {
+      "Base": "ED_ShootingPlant",
+      "DifficultyRating": 100
+    },
+    "ED_Spider_Buffer": {
+      "Base": "ED_Spider_Buffer",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 70,
+      "MaxSpawnCount": 1,
+      "Rarity": 5.125,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Boss_TwinA_Weak": {
+      "Base": "ED_Spider_Boss_TwinA",
+      "DifficultyRating": 150,
+      "MinSpawnCount": 1,
+      "MaxSpawnCount": 0,
+      "Rarity": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 4,
+        "Then": 5.5,
+        "Else": 100
+      },
+      "CanBeUsedInEncounters": true,
+      "CanBeUsedForConstantPressure": true,
+      "UsesSpawnRarityModifiers": true,
+      "SpawnAmountModifier": 2,
+      "SpawnRarityModifiers": {
+        "Duration": 120,
+        "Rarity": 1000
+      },
+      "Resistances": {
+        "DamageMultiplier": 13.125
+      }
+    },
+    "ED_Fauxnought": {
+      "Base": "ED_Fauxnought",
+      "DifficultyRating": 150,
+      "MinSpawnCount": 1,
+      "MaxSpawnCount": 0,
+      "IsBossFight": true,
+      "Rarity": 5.5,
+      "CanBeUsedInEncounters": true,
+      "CanBeUsedForConstantPressure": true,
+      "UsesSpawnRarityModifiers": true,
+      "SpawnAmountModifier": 2
+    },
+    "ED_Spider_Exploder": {
+      "Base": "ED_Spider_Exploder",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 10,
+      "Rarity": 5
+    },
+    "ED_Spider_ExploderTank": {
+      "Base": "ED_Spider_ExploderTank",
+      "DifficultyRating": 175,
+      "MaxSpawnCount": 2,
+      "MinSpawnCount": 1,
+      "Movement": {
+        "AlignDirectionSpeed": 1.35,
+        "AlignToTargetMinRequiredAngle": 1.1,
+        "MaxAcceleration": 1.35,
+        "MaxBrakingDeceleration": 1.35,
+        "MaxPawnSpeed": 1.35,
+        "MaxStrafeDistance": 1.35,
+        "StrafeSpeed": 1.35
+      },
+      "Rarity": 7,
+      "SpawnAmountModifier": 1,
+      "SpawnSpread": {
+        "Mutate": "ByMissionType",
+        "Default": 16000,
+        "Escort": 0
+      },
+      "TimeDilation": 1
+    },
+    "ED_Spider_Grunt": {
+      "Base": "ED_Spider_Grunt",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 2.5,
+      "MaxSpawnCount": 120,
+      "Rarity": 1.5,
+      "SpawnAmountModifier": 0.25
+    },
+    "ED_Spider_Lobber": {
+      "Base": "ED_Spider_Lobber",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 70,
+      "MaxSpawnCount": 1,
+      "MinSpawnCount": 1,
+      "Rarity": 5.125,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_RapidShooter": {
+      "Base": "ED_Spider_RapidShooter",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 80,
+      "MaxSpawnCount": 1,
+      "Rarity": 5.25,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Shooter": {
+      "Base": "ED_Spider_Shooter",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 55,
+      "Rarity": 5.375,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Spawn": {
+      "Base": "ED_Spider_Grunt",
+      "DisplayName": "Glyphid Nexus Grunt",
+      "Materials": ["M_Bosco_PJ_CorporateMint", "M_Refrigerator_Chrome"]
+    },
+    "ED_Spider_Spitter": {
+      "Base": "ED_Spider_Spitter",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 40,
+      "MaxSpawnCount": 100,
+      "MinSpawnCount": 1,
+      "Rarity": 5.375,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Stalker": {
+      "Base": "ED_Spider_Stalker_Beta",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": false,
+      "DifficultyRating": 200,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 1,
+      "Rarity": 7,
+      "SpawnAmountModifier": 1,
+      "StaggerDurationMultiplier": 1,
+      "StaggerImmunityWindow": 0
+    },
+    "ED_Spider_Stinger": {
+      "Base": "ED_Spider_Stinger",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 110,
+      "MaxSpawnCount": 1,
+      "MinSpawnCount": 1,
+      "Rarity": 5.5,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Swarmer": {
+      "Base": "ED_Spider_Swarmer",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 4,
+      "MaxSpawnCount": 180,
+      "MinSpawnCount": 10,
+      "Rarity": 5,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_Tank": {
+      "Base": "ED_Spider_Tank",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 12,
+      "MaxSpawnCount": 1,
+      "Rarity": 5,
+      "SpawnAmountModifier": 1
+    },
+    "ED_SpiderSpawner": {
+      "Base": "ED_SpiderSpawner",
+      "Resistances": {
+        "FireDamageMultiplier": 3.95
+      }
+    },
+    "ED_TentaclePlant": {
+      "TimeDilation": 0.5
+    },
+    "ED_TunnelSwarmer": {
+      "Base": "ED_Spider_Grunt",
+      "DisplayName": "Glyphid Tunnel Grunt",
+      "Materials": ["M_Bosco_PJ_CorporateMint", "M_Refrigerator_Chrome"]
+    },
+    "ED_Spider_RapidShooter_Turbo": {
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": false,
+      "DifficultyRating": 150,
+      "MaxSpawnCount": 1,
+      "MinSpawnCount": 1,
+      "Rarity": 5.875,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Woodlouse": {
+      "Base": "ED_Woodlouse",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 110,
+      "MaxSpawnCount": 1,
+      "Rarity": 5.25,
+      "SpawnAmountModifier": 1
+    },
+    "ED_Spider_ExploderTank_small": {
+      "DisplayName": "Glyphid Mini-Bulk Detonator",
+      "DifficultyRating": 110,
+      "Rarity": 5.125,
+      "MinSpawnCount": 1,
+      "MaxSpawnCount": 2,
+      "CanBeUsedInEncounters": false,
+      "CanBeUsedForConstantPressure": true,
+      "SpawnAmountModifier": 1,
+      "Resistances": {
+        "DamageMultiplier": 3.038
+      }
+    },
+    "XED_DreadHelper": {
+      "Base": "ED_Spider_ExploderTank",
+      "HealthMultiplier": 0.85,
+      "WeakpointHP": 300,
+      "MaxSpawnCount": 0,
+      "SpawnAmountModifier": 0.01,
+      "Movement": {
+        "MaxPawnSpeed": 1.5,
+        "StrafeSpeed": 1.5,
+        "MaxStrafeDistance": 1.5,
+        "AlignDirectionSpeed": 1.5,
+        "MaxAcceleration": 1.5,
+        "MaxBrakingDeceleration": 1.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      }
+    },
+    "XED_first_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "First resupply! Sentinels and fire bombers enabled."
+    },
+    "XED_second_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Second resupply! Fake dread enabled."
+    },
+    "XED_third_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Third resupply! Mini bulk waves enabled."
+    },
+    "XED_fourth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Fourth resupply! Turbo menace added to pool."
+    },
+    "XED_fifth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Fifth resupply! Weak arbalest added to pool."
+    },
+    "XED_sixth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Sixth resupply! Crawler waves enabled."
+    },
+    "XED_seventh_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Seventh resupply! Bugs are faster."
+    },
+    "XED_eighth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Eighth resupply! Bugs are faster."
+    },
+    "XED_ninth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Ninth resupply! Bugs are faster."
+    },
+    "XED_tenth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Tenth resupply! Bugs are faster."
+    },
+    "XED_eleventh_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Eleventh resupply! Bugs are faster."
+    },
+    "XED_twelfth_resup": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "Twelfth resupply! Bugs are faster."
+    },
+    "XED_100_gold": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "100 gold deposited! A little help: resup cost changes to 40."
+    }
+  },
+  "EscortMule": {
+    "FriendlyFireModifier": 0.1,
+    "BigHitDamageModifier": 0.75,
+    "BigHitDamageReductionThreshold": 0,
+    "NeutralDamageModifier": 0.1
+  },
+  "WaveSpawners": [
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 0,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_first_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 1,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_second_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 2,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_third_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 3,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_fourth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 4,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_fifth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 5,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_sixth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 6,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_seventh_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 7,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_eighth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 8,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_ninth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 9,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_tenth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 10,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_eleventh_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 11,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_twelfth_resup"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "DepositedResource",
+          "Resource": "Gold"
+        },
+        ">": 99,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_100_gold"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 1,
+        "Then": {
+          "Mutate": "If",
+          "Condition": {
+            "Mutate": "DuringDefend"
+          },
+          "Then": false,
+          "Else": true
+        },
+        "Else": false
+      },
+      "Enemies": ["ED_Fauxnought"],
+      "Difficulty": 40,
+      "Interval": {
+        "Mutate": "RandomChoice",
+        "Choices": [90, 180],
+        "Weights": [0.5, 0.5]
+      },
+      "Distance": 3000,
+      "Locations": 1
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 2,
+        "Then": true,
+        "Else": false
+      },
+      "Enemies": {
+        "Mutate": "RandomChoice",
+        "Choices": [["ED_Spider_ExploderTank_small"], ["XED_Spider_Grunt"]],
+        "Weights": [0.4, 0.6]
+      },
+      "Difficulty": 95,
+      "Interval": 150,
+      "Distance": 3000,
+      "Locations": 1
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 3,
+        "Then": true,
+        "Else": false
+      },
+      "Enemies": {
+        "Mutate": "RandomChoice",
+        "Choices": [["ED_Spider_RapidShooter_Turbo"], ["XED_Spider_Grunt"]],
+        "Weights": [0.4, 0.6]
+      },
+      "Difficulty": 70,
+      "Interval": {
+        "Mutate": "RandomChoice",
+        "Choices": [90, 150],
+        "Weights": [0.4, 0.6]
+      },
+      "Distance": 3000,
+      "Locations": 3
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 4,
+        "Then": true,
+        "Else": false
+      },
+      "Enemies": ["ED_Spider_Boss_TwinA_Weak"],
+      "Difficulty": 40,
+      "Interval": {
+        "Mutate": "RandomChoice",
+        "Choices": [90, 180],
+        "Weights": [0.5, 0.5]
+      },
+      "Distance": 3000,
+      "Locations": 1
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 5,
+        "Then": true,
+        "Else": false
+      },
+      "Enemies": {
+        "Mutate": "RandomChoice",
+        "Choices": [
+          ["ED_Crawler"],
+          ["ED_Spider_Spitter"],
+          ["ED_Spider_Exploder"]
+        ],
+        "Weights": [0.5, 0.25, 0.25]
+      },
+      "Difficulty": 40,
+      "Interval": 100,
+      "Distance": 3000,
+      "Locations": 3
+    }
+  ]
+}
