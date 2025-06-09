@@ -1,5 +1,5 @@
 {
-  "Name": "Nitra Rush v0.7",
+  "Name": "Nitra Rush! v0.7",
   "Description": "Calling resupplies will make the difficulty harder. Collecting gold will give minor positive effects.",
   "Caps": {
     "MaxActiveCritters": 40,
@@ -127,7 +127,25 @@
         "A": {
           "Mutate": "ResuppliesCalled"
         },
-        "B": 0.1
+        "B": {
+          "Mutate": "ByDNA",
+          "Default": 0.1,
+          "Mining,1,1": 0.15,
+          "Mining,2,1": 0.12,
+          "Egg,1,1": 0.125,
+          "Egg,3,2": 0.09,
+          "PE,2": 0.12,
+          "Salvage": 0.09,
+          "Salvage,x,3": 0.07,
+          "Escort,2": 0.08,
+          "Escort,3": 0.05,
+          "Refinery,x,2": 0.1,
+          "Refinery,x,3": 0.075,
+          "Elimination,3": 0.08,
+          "Sabotage,x,1": 0.09,
+          "Sabotage,x,2": 0.07,
+          "DeepScan,x,3": 0.08
+        }
       }
     },
     "AttackCooldownModifier": 1.75,
@@ -139,14 +157,41 @@
         "A": {
           "Mutate": "ResuppliesCalled"
         },
-        "B": 0.1
+        "B": {
+          "Mutate": "ByDNA",
+          "Default": 0.1,
+          "Mining,1,1": 0.15,
+          "Mining,2,1": 0.12,
+          "Egg,1,1": 0.125,
+          "Egg,3,2": 0.09,
+          "PE,2": 0.12,
+          "Salvage": 0.09,
+          "Salvage,x,3": 0.07,
+          "Escort,2": 0.08,
+          "Escort,3": 0.05,
+          "Refinery,x,2": 0.1,
+          "Refinery,x,3": 0.075,
+          "Elimination,3": 0.08,
+          "Sabotage,x,1": 0.09,
+          "Sabotage,x,2": 0.07,
+          "DeepScan,x,3": 0.08
+        }
       }
     },
     "HealthRegenerationMax": 0.4,
-    "ReviveHealthRatio": 0.4
+    "ReviveHealthRatio": {
+      "Mutate": "IfFloat",
+      "Value": {
+        "Mutate": "DepositedResource",
+        "Resource": "Gold"
+      },
+      ">": 149,
+      "Then": 0.6,
+      "Else": 0.4
+    }
   },
   "Pools": {
-    "MinPoolSize": 30,
+    "MinPoolSize": 45,
     "DisruptiveEnemyPoolCount": {
       "min": 8,
       "max": 8
@@ -160,7 +205,8 @@
         "ED_JellyBreeder_Swarm",
         "ED_PatrolBot",
         "ED_Sentinel",
-        "ED_Bomber_Explosive"
+        "ED_Bomber_Explosive",
+        "ED_Spider_Grunt_Rock"
       ]
     },
     "StationaryPool": {
@@ -290,17 +336,9 @@
       "CanBeUsedForConstantPressure": true,
       "CanBeUsedInEncounters": true,
       "DifficultyRating": 90,
-      "MaxSpawnCount": 10,
+      "MaxSpawnCount": 4,
       "MinSpawnCount": 1,
-      "Rarity": {
-        "Mutate": "IfFloat",
-        "Value": {
-          "Mutate": "ResuppliesCalled"
-        },
-        ">": 0,
-        "Then": 5.1,
-        "Else": 100
-      },
+      "Rarity": 5.5,
       "SpawnAmountModifier": 1,
       "SpawnSpread": 5000
     },
@@ -322,23 +360,11 @@
       "DifficultyRating": 150,
       "MinSpawnCount": 1,
       "MaxSpawnCount": 0,
-      "Rarity": {
-        "Mutate": "IfFloat",
-        "Value": {
-          "Mutate": "ResuppliesCalled"
-        },
-        ">": 4,
-        "Then": 5.5,
-        "Else": 100
-      },
+      "Rarity": 5.5,
       "CanBeUsedInEncounters": true,
       "CanBeUsedForConstantPressure": true,
       "UsesSpawnRarityModifiers": true,
-      "SpawnAmountModifier": 2,
-      "SpawnRarityModifiers": {
-        "Duration": 120,
-        "Rarity": 1000
-      },
+      "SpawnAmountModifier": 1,
       "Resistances": {
         "DamageMultiplier": 13.125
       }
@@ -500,6 +526,23 @@
       "Rarity": 5.875,
       "SpawnAmountModifier": 1
     },
+    "ED_Spider_Grunt_Rock": {
+      "Base": "ED_Spider_Grunt_Rock",
+      "CanBeUsedForConstantPressure": true,
+      "CanBeUsedInEncounters": true,
+      "DifficultyRating": 10,
+      "MaxSpawnCount": 2,
+      "MinSpawnCount": 1,
+      "Rarity": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "ResuppliesCalled"
+        },
+        ">": 0,
+        "Then": 5.5,
+        "Else": 100
+      }
+    },
     "ED_Woodlouse": {
       "Base": "ED_Woodlouse",
       "CanBeUsedForConstantPressure": true,
@@ -558,7 +601,7 @@
       "Resistances": {
         "DamageMultiplier": 1
       },
-      "DisplayName": "First resupply! Sentinels and fire bombers enabled."
+      "DisplayName": "First resupply! Ebonites and fire bombers enabled."
     },
     "XED_second_resup": {
       "Base": "ED_Spider_Swarmer",
@@ -823,6 +866,28 @@
         "DamageMultiplier": 1
       },
       "DisplayName": "100 gold deposited! A little help: resup cost changes to 40."
+    },
+    "XED_150_gold": {
+      "Base": "ED_Spider_Swarmer",
+      "HealthMultiplier": 10,
+      "DifficultyRating": 10,
+      "IsBossFight": true,
+      "Scale": 5,
+      "MaxSpawnCount": 0,
+      "MinSpawnCount": 0,
+      "Movement": {
+        "MaxPawnSpeed": 0.5,
+        "StrafeSpeed": 0.5,
+        "MaxStrafeDistance": 0.5,
+        "AlignDirectionSpeed": 0.5,
+        "MaxAcceleration": 0.5,
+        "MaxBrakingDeceleration": 0.5,
+        "AlignToTargetMinRequiredAngle": 1.1
+      },
+      "Resistances": {
+        "DamageMultiplier": 1
+      },
+      "DisplayName": "150 gold deposited! A little help: you revive with more HP."
     }
   },
   "EscortMule": {
@@ -832,6 +897,25 @@
     "NeutralDamageModifier": 0.1
   },
   "WaveSpawners": [
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
+          "Mutate": "EnemyCount",
+          "ED": "XED_DreadHelper"
+        },
+        "<": 1,
+        "Then": {
+          "Mutate": "DuringDread"
+        },
+        "Else": false
+      },
+      "Interval": 10,
+      "Enemies": ["XED_DreadHelper"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1
+    },
     {
       "Enabled": {
         "Mutate": "IfFloat",
@@ -1058,6 +1142,24 @@
       "Enabled": {
         "Mutate": "IfFloat",
         "Value": {
+          "Mutate": "DepositedResource",
+          "Resource": "Gold"
+        },
+        ">": 149,
+        "Then": true,
+        "Else": false
+      },
+      "Interval": 100000000,
+      "Enemies": ["XED_150_gold"],
+      "Difficulty": 250,
+      "Distance": 1750,
+      "Locations": 1,
+      "SpawnOnEnable": true
+    },
+    {
+      "Enabled": {
+        "Mutate": "IfFloat",
+        "Value": {
           "Mutate": "ResuppliesCalled"
         },
         ">": 1,
@@ -1094,7 +1196,7 @@
       "Enemies": {
         "Mutate": "RandomChoice",
         "Choices": [["ED_Spider_ExploderTank_small"], ["XED_Spider_Grunt"]],
-        "Weights": [0.4, 0.6]
+        "Weights": [0.5, 0.5]
       },
       "Difficulty": 95,
       "Interval": 150,
